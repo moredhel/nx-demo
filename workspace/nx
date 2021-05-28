@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# NX wrapper script to provide nx functionality through NPM for a single project
+
+# Nx does takes the project name from the CWD, but NPM sets it to the package.json root. Restore it
+cd "${INIT_CWD:-$(pwd)}" || exit
+
+if [[ "$PINO_PRETTY" = 1 ]]; then
+  npx nx "$@" | pino-pretty -t SYS:
+else
+  npx nx "$@"
+fi
